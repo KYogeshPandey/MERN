@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advance Functions</title>
+</head>
+<body>
+  <script>
+    const func1 = function greeting() {
+      console.log('Hello');
+    }
+    console.log(func1);
+
+    //Hoisting
+    greeting();
+    function greeting() {
+      console.log('Hello');
+    }
+
+
+    // Function inside an object
+    const object = {
+      num: 2,
+      fun: function() {
+        console.log('Hello3');
+      }
+    }
+
+    object.fun();
+
+    // Passing value into a function 
+
+    function display (param) {
+      console.log(param);
+    }
+    display(2);
+
+    // passing function inside a function 
+
+    function run (param) {
+      param();
+    }
+    run(function() {
+      console.log('Hello5')
+    });
+
+  </script>
+</body>
+</html>

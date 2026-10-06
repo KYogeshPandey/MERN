@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contsctform</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            Welcome to CodeHelp!
+            <p class="subtitle">Contact Us</p>
+        </header>
+    </div>
+
+    <main class="card" role="main">
+        <!-- replace action with your endpoint  -->
+         <form id="contactForm" action="#" method="post" autocomplete="on" novalidate>
+            <p class="tiny"> Fields marked with <span class="required">*</span> are required.</p>
+            
+            <div class="grid-2">
+            <div>
+                <label for="Name">Name<span class="required">*</span></label>
+                <input type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required />
+                <div class="error-msg" id="nameError">Please enter your name.</div>
+            </div>
+
+            <div
+            </div>
+         </form>
+    </main>
+    
+
+
+</body>
+</html>

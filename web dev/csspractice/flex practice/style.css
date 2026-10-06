@@ -1,0 +1,68 @@
+*{
+    box-sizing:border-box;
+}
+.container{
+    height:400px;
+    border:2px solid black;
+    display: flex;
+    /* flex-direction: row-reverse; */
+    /*flex-wrap:wrap;        ***used to wrap the items to next line when there is no space in the current line */
+    flex-wrap:wrap;
+
+    /* justify-content: flex-start;
+    justify-content: flex-end;
+    justify-content: center;
+    justify-content: space-around;
+    justify-content: space-between; 
+    justify-content: space-evenly;
+    
+    align-items: flex-start;       ***  used to align items vertically
+    align-items:flex-end;
+    align-items:center;
+    align-items:stretch;
+    align-items: baseline; */
+
+    /* justify-content: center;
+    align-items: center; */
+
+    /* gap:10px; */
+
+    /* align-content: flex-start; */
+    /* align-content:flex-end; */
+    /* align-content:center; */
+    /* align-content:space-around; */
+    /* align-content:space-between; */
+    /* align-content:space-evenly; */
+
+    justify-content: center;
+    align-items:center;
+    align-content:flex-start;
+    /* gap:10px; */
+
+
+}
+
+.box{
+    border:1px solid brown;
+    background-color: lightblue;
+    /* width: 200px; */
+    flex-basis: 50%;
+   /* flex-grow: 1; they will grow and take the available space */
+    
+}
+#box1{
+    order:1;
+   /* flex-shrink:2; they will shrink if there is no space */
+   align-self: flex-start;
+}
+#box3{
+    order: 8;
+    align-self: flex-end;
+}
+#box2{
+    order:4;
+    align-self: stretch;
+}
+#box4{
+    order:4;
+}

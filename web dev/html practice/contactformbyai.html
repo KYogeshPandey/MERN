@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us • CodeHelp</title>
+
+  <style>
+    :root{
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --accent: #8b5cf6;
+      --accent-600: #7c3aed;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --border: #1f2937;
+      --input-bg: #0b1220;
+      --focus: #60a5fa;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, #1e293b 5%, #0b1220 55%, #070b14 80%) no-repeat,
+                  linear-gradient(180deg, #070b14, #020409);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      margin: 0 0 .25rem;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #0c1426 0%, #0a1020 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    label {
+      display: inline-block;
+      margin-bottom: .4rem;
+      font-weight: 600;
+    }
+    .hint {
+      display: block;
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: .25rem;
+    }
+    .required {
+      color: var(--accent);
+      margin-left: .15rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: .8rem .9rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--input-bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    input::placeholder, textarea::placeholder { color: #6b7280; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent);
+    }
+    .error { border-color: var(--danger); }
+    .error-msg {
+      color: var(--danger);
+      font-size: .85rem;
+      margin-top: .35rem;
+      display: none;
+    }
+    .error + .error-msg { display: block; }
+
+    /* Star rating (accessible radios) */
+    fieldset { border: none; padding: 0; margin: 0; }
+    .star-rating {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: .25rem;
+    }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+    .star-rating input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+    .star {
+      font-size: 1.5rem;
+      color: #475569;
+      cursor: pointer;
+      transition: color .15s ease, transform .05s ease;
+      user-select: none;
+    }
+    .star:hover, .star:hover ~ .star { color: #fbbf24; }
+    .star-rating input:focus + label.star {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+    .star-rating input:checked ~ label.star { color: #f59e0b; }
+    .star:active { transform: scale(.97); }
+
+    /* Actions */
+    .actions {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-top: .25rem;
+    }
+    button, input[type="submit"], input[type="reset"] {
+      padding: .8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #121a2e;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform .05s ease, opacity .2s ease, background .15s ease, border-color .15s ease;
+    }
+    button:active, input[type="submit"]:active, input[type="reset"]:active { transform: translateY(1px); }
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent), var(--accent-600));
+      border: none;
+    }
+    .btn-ghost {
+      background: transparent;
+    }
+
+    .status {
+      margin-top: .25rem;
+      font-size: .95rem;
+      line-height: 1.4;
+      padding: .75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      display: none;
+    }
+    .status.show { display: block; }
+    .status.success { border-color: color-mix(in srgb, var(--success) 60%, var(--border)); }
+    .status.error { border-color: color-mix(in srgb, var(--danger) 60%, var(--border)); }
+
+    .char-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .25rem;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    footer {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .social {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      transition: transform .05s ease, background .15s ease, border-color .15s ease, opacity .2s ease;
+    }
+    .social:hover { background: #0e162a; border-color: #273143; transform: translateY(-1px); }
+    .social svg { width: 22px; height: 22px; fill: #cbd5e1; }
+    a[target="_blank"] { text-decoration: none; }
+
+    .tiny {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: -.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to CodeHelp!</h1>
+      <p class="subtitle">Contact Us</p>
+    </header>
+
+    <main class="card" role="main">
+      <!-- Replace action with your endpoint (e.g., https://formspree.io/f/xxxx) -->
+      <form id="contactForm" action="#" method="post" autocomplete="on" novalidate>
+        <p class="tiny">Fields marked with <span class="required">*</span> are required.</p>
+
+        <div class="grid-2">
+          <div>
+            <label for="name">Name <span class="required">*</span></label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              autocomplete="name"
+              required />
+            <div class="error-msg" id="nameError">Please enter your name.</div>
+          </div>
+
+          <div>
+            <label for="email">Email <span class="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              inputmode="email"
+              required />
+            <div class="error-msg" id="emailError">Enter a valid email address.</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="contact">Phone <span class="required">*</span></label>
+            <input
+              type="tel"
+              id="contact"
+              name="contact"
+              placeholder="+1 555 123 4567"
+              autocomplete="tel"
+              inputmode="tel"
+              pattern="^[+()\-.\s\d]{7,20}$"
+              required />
+            <span class="hint">Digits, spaces, +, and () allowed.</span>
+            <div class="error-msg" id="phoneError">Enter a valid phone number.</div>
+          </div>
+
+          <div>
+            <label for="gender">Gender <span class="required">*</span></label>
+            <select id="gender" name="gender" required>
+              <option value="" disabled selected hidden>Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer-not">Prefer not to say</option>
+            </select>
+            <div class="error-msg" id="genderError">Please select a gender.</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="dob">Date of Birth <span class="required">*</span></label>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              autocomplete="bday"
+              required />
+            <span class="hint" id="dobHint">Must not be a future date.</span>
+            <div class="error-msg" id="dobError">Please choose a valid date.</div>
+          </div>
+
+          <div>
+            <fieldset>
+              <legend>Rating <span class="required">*</span></legend>
+              <div class="star-rating" role="radiogroup" aria-label="Rating">
+                <!-- Note: radios are reversed for nicer hover-fill behavior -->
+                <input type="radio" id="rating-5" name="rating" value="5" required />
+                <label for="rating-5" class="star" title="5 stars" aria-label="5 stars">★</label>
+
+                <input type="radio" id="rating-4" name="rating" value="4" />
+                <label for="rating-4" class="star" title="4 stars" aria-label="4 stars">★</label>
+
+                <input type="radio" id="rating-3" name="rating" value="3" />
+                <label for="rating-3" class="star" title="3 stars" aria-label="3 stars">★</label>
+
+                <input type="radio" id="rating-2" name="rating" value="2" />
+                <label for="rating-2" class="star" title="2 stars" aria-label="2 stars">★</label>
+
+                <input type="radio" id="rating-1" name="rating" value="1" />
+                <label for="rating-1" class="star" title="1 star" aria-label="1 star">★</label>
+              </div>
+              <div class="error-msg" id="ratingError">Please select a rating.</div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div>
+          <label for="msg">Your Message <span class="required">*</span></label>
+          <textarea
+            id="msg"
+            name="message"
+            rows="5"
+            placeholder="Write your message..."
+            minlength="10"
+            maxlength="500"
+            required></textarea>
+          <div class="char-row">
+            <span class="hint">Min 10 characters</span>
+            <span id="charCount" aria-live="polite">0 / 500</span>
+          </div>
+          <div class="error-msg" id="msgError">Please enter at least 10 characters.</div>
+        </div>
+
+        <div>
+          <label>
+            <input type="checkbox" id="consent" name="consent" required />
+            I agree to the Terms and Privacy Policy <span class="required">*</span>
+          </label>
+          <div class="error-msg" id="consentError">You must accept to continue.</div>
+        </div>
+
+        <!-- Honeypot anti-spam -->
+        <div class="sr-only" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="actions">
+          <input type="submit" value="Submit" class="btn-primary" />
+          <input type="reset" value="Reset" class="btn-ghost" />
+        </div>
+
+        <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+      </form>
+
+      <footer>
+        <a class="social" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"/></svg>
+        </a>
+
+        <a class="social" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 2 .2 2.5.4.6.2 1 .4 1.5.9.5.5.7.9.9 1.5.2.5.3 1.3.4 2.5.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 2-.4 2.5-.2.6-.4 1-.9 1.5-.5.5-.9.7-1.5.9-.5.2-1.3.3-2.5.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-2-.2-2.5-.4-.6-.2-1-.4-1.5-.9-.5-.5-.7-.9-.9-1.5-.2-.5-.3-1.3-.4-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-2 .4-2.5.2-.6.4-1 .9-1.5.5-.5.9-.7 1.5-.9.5-.2 1.3-.3 2.5-.4C8.4 2.2 8.8 2.2 12 2.2m0-2.2C8.7 0 8.3 0 7.1.1 5.9.2 5 .3 4.3.5 3.5.8 2.9 1.1 2.2 1.8 1.5 2.5 1.2 3.1 1 3.9c-.2.7-.3 1.6-.4 2.8C.5 8  .5 8.4.5 12s0 4 .1 5.3c.1 1.2.2 2.1.4 2.8.2.8.5 1.4 1.2 2.1.7.7 1.3 1 2.1 1.2.7.2 1.6.3 2.8.4C8 23.5 8.4 23.5 12 23.5s4 0 5.3-.1c1.2-.1 2.1-.2 2.8-.4.8-.2 1.4-.5 2.1-1.2.7-.7 1-1.3 1.2-2.1.2-.7.3-1.6.4-2.8.1-1.3.1-1.7.1-5.3s0-4-.1-5.3c-.1-1.2-.2-2.1-.4-2.8-.2-.8-.5-1.4-1.2-2.1C21.9.5 21.3.2 20.5 0c-.7-.2-1.6-.3-2.8-.4C16  -.5 15.6-.5 12-.5 8.4-.5 8  -.5 6.7-.4 5.5-.3 4.6-.2 3.9 0 3.1.2 2.5.5 1.8 1.2 1.1 1.9.8 2.5.6 3.3.4 4 .3 4.9.2 6.1.1 7.4.1 7.8.1 12s0 4.2.1 5.5c.1 1.2.2 2.1.4 2.8.2.8.5 1.4 1.2 2.1.7.7 1.3 1 2.1 1.2.7.2 1.6.3 2.8.4 1.3.1 1.7.1 5.3.1s4 0 5.3-.1c1.2-.1 2.1-.2 2.8-.4.8-.2 1.4-.5 2.1-1.2.7-.7 1-1.3 1.2-2.1.2-.7.3-1.6.4-2.8.1-1.3.1-1.7.1-5.3s0-4-.1-5.3c-.1-1.2-.2-2.1-.4-2.8-.2-.8-.5-1.4-1.2-2.1C21.9.5 21.3.2 20.5 0 19.8-.2 18.9-.3 17.7-.4 16.4-.5 16-.5 12-.5Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </a>
+
+        <a class="social" href="https://telegram.org" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.7 15.6 9.5 19c.4 0 .6-.2.8-.4l2-2 4.1 3c.7.4 1.2.2 1.4-.7l2.6-12c.2-.9-.3-1.2-1-.9L3 10c-.8.3-.8.7-.1.9l4.9 1.5 11.4-7.1-8.5 9-1 .9Z"/></svg>
+        </a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Set max DOB to today (no future dates)
+    (function setMaxDOB() {
+      const dob = document.getElementById('dob');
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      dob.max = `${yyyy}-${mm}-${dd}`;
+    })();
+
+    // Character counter
+    const msg = document.getElementById('msg');
+    const charCount = document.getElementById('charCount');
+    const updateCount = () => {
+      charCount.textContent = `${msg.value.length} / ${msg.maxLength}`;
+    };
+    msg.addEventListener('input', updateCount);
+    updateCount();
+
+    // Simple client-side validation and status
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+
+    function setFieldError(input, hasError) {
+      input.classList.toggle('error', hasError);
+      const errorEl = input.parentElement.querySelector('.error-msg');
+      if (errorEl) errorEl.style.display = hasError ? 'block' : 'none';
+    }
+
+    function validate() {
+      let ok = true;
+      const inputs = [
+        'name','email','contact','gender','dob','msg','consent'
+      ].map(id => document.getElementById(id));
+
+      inputs.forEach(input => {
+        if (!input) return;
+        const isCheckbox = input.type === 'checkbox';
+        const isValid = isCheckbox ? input.checked : input.checkValidity();
+        setFieldError(input, !isValid);
+        if (!isValid) ok = false;
+      });
+
+      // rating group
+      const rated = [...document.querySelectorAll('input[name="rating"]')].some(r => r.checked);
+      const ratingError = document.getElementById('ratingError');
+      if (!rated) {
+        ratingError.style.display = 'block';
+        ok = false;
+      } else {
+        ratingError.style.display = 'none';
+      }
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.className = 'status';
+      status.textContent = '';
+
+      if (!validate()) {
+        status.classList.add('show', 'error');
+        status.textContent = 'Please fix the highlighted fields.';
+        form.reportValidity?.();
+        return;
+      }
+
+      // Honeypot check
+      if (document.getElementById('company').value) {
+        status.classList.add('show', 'error');
+        status.textContent = 'Spam detected.';
+        return;
+      }
+
+      // Simulate submit (replace this with real fetch to your backend)
+      try {
+        await new Promise(r => setTimeout(r, 700));
+        status.classList.add('show', 'success');
+        status.textContent = 'Thanks! Your message has been sent.';
+        form.reset();
+        updateCount();
+      } catch {
+        status.classList.add('show', 'error');
+        status.textContent = 'Something went wrong. Please try again.';
+      }
+    });
+
+    // Inline validation on blur
+    form.addEventListener('blur', (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      if (['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)) {
+        if (e.target.name === 'rating') return;
+        setFieldError(e.target, !e.target.checkValidity());
+      }
+    }, true);
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    
+}
+#wrapper{
+    height:100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective:20px;
+}
+
+.container{
+    position: relative;
+    height: 100%;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    transform-style: preserve-3d;
+    z-index: -1;
+
+}
+
+.background{
+    position: absolute;
+    height:100%;
+    width:100%;
+    object-fit: cover;
+    z-index:-1;
+    transform: translateZ(-40px) scale(3);
+}
+
+.foreground{
+    position: absolute;
+    height:100%;
+    width:53%;
+    object-fit: cover;
+    z-index: -1;
+    transform: translateZ(-17px) scale(2.1);
+}
+h1{
+    position:absolute;
+    top:5rem;
+    font-size: 8rem;
+    letter-spacing:4px;
+    color:white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+section{
+    background-color: rgb(45,45,45);
+    color:white;
+    padding:5rem 0;
+}
+
+.secheading{
+    font-size:5rem;
+    padding:0 10rem;
+}
+
+.text{
+    font-size: 1.5rem;
+    padding:0 10rem;
+    margin: 5rem 0;
+
+}
+
+.bg{
+    position:relative;
+    width:100%;
+    background-attachment: fixed;
+    background-size:cover;
+    background-position: center;
+    height:450px;
+    
+}
+
+.desc{
+    position:absolute;
+    background-color:white;
+    padding:0.5rem 2.5rem;
+    transform: translate(-50% ,-50%);
+    color:black;
+    font-size :2rem;
+    top:50%;
+    left:50%;
+}
+
+.bg1{
+    background-image: url(biking.jpg);
+}
+
+.bg2{
+    background-image: url(paragliding.jpg); 
+}
+
+.bg3{
+    background-image: url(surfing.jpg);
+}

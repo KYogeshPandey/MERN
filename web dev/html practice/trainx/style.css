@@ -1,0 +1,113 @@
+.cake-container {
+  position: relative;
+
+  width: 260px;
+  height: 220px;
+
+  perspective: 800px;
+}
+
+/* Cake stays fixed */
+.cake {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  left: 0;
+  top: 0;
+
+  z-index: 1;
+}
+
+
+/* =====================
+   4 COVER PANELS
+   ===================== */
+
+.cover {
+  position: absolute;
+
+  background: #e63946;
+
+  z-index: 2;
+
+  transition: transform 1s ease;
+
+  transform-style: preserve-3d;
+}
+
+
+/* TOP */
+
+.top {
+  width: 100%;
+  height: 50%;
+
+  top: 0;
+  left: 0;
+
+  transform-origin: top;
+}
+
+
+/* BOTTOM */
+
+.bottom {
+  width: 100%;
+  height: 50%;
+
+  bottom: 0;
+  left: 0;
+
+  transform-origin: bottom;
+}
+
+
+/* LEFT */
+
+.left {
+  width: 50%;
+  height: 100%;
+
+  left: 0;
+  top: 0;
+
+  transform-origin: left;
+}
+
+
+/* RIGHT */
+
+.right {
+  width: 50%;
+  height: 100%;
+
+  right: 0;
+  top: 0;
+
+  transform-origin: right;
+}
+
+
+/* =====================
+   HOVER
+   ===================== */
+
+.cake-container:hover .top {
+  transform: rotateX(-100deg);
+}
+
+.cake-container:hover .bottom {
+  transform: rotateX(100deg);
+}
+
+.cake-container:hover .left {
+  transform: rotateY(-100deg);
+}
+
+.cake-container:hover .right {
+  transform: rotateY(100deg);
+}
