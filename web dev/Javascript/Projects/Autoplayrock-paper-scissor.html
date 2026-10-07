@@ -7,7 +7,7 @@
   <title>Rock Paper Scissor</title>
   <link 
   rel="stylesheet" 
-  href="styles/rock-paper-scissor.css">
+  href="styles/Autoplay-rock-paper-scissor copy.css">
 </head>
 
 <body>
@@ -20,13 +20,15 @@
     3. Display the result in popup.
   -->
 
-  <button class="design-button js-rock-button"><img src="images/rock-emoji.png" alt="rock" class="design-icon"></button>
+  <button class="design-button" onclick="
+    playGame('rock');
+  "><img src="images/rock-emoji.png" alt="rock" class="design-icon"></button>
 
-  <button class="design-button js-paper-button" onclick="
+  <button class="design-button" onclick="
     playGame('paper');
   "><img src="images/paper-emoji.png" alt="paper" class="design-icon"></button>
 
-  <button class="design-button js-scissor-button" onclick="
+  <button class="design-button" onclick="
     playGame('scissor');
   "><img src="images/scissor-emoji.png" alt="scissor" class="design-icon"></button>
 
@@ -37,10 +39,22 @@
   </p>
   <p class="js-score score"></p>
 
-  <button class="reset-score-button js-resetScore-button">Reset Score</button>
+  <button class="reset-score-button" onclick="
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0;
+
+    localStorage.removeItem('score');
+
+    updateScoreElement();
+  ">Reset Score</button>
+
+  <button class="Auto-play-button" onclick="
+  autoplay();
+  ">Auto Play</button>
 
 
-  <script src="scripts/rock-paper-scissor.js"></script>
+  <script src="scripts/Autoplay-rock-paper-scissor copy.js"></script>
 
 </body>
 

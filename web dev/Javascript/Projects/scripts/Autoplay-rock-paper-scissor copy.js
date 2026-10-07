@@ -10,44 +10,22 @@
     // Display score when page loads
     updateScoreElement();
 
-    document.querySelector('.js-rock-button')
-      .addEventListener('click', () => {
-        playGame('rock');
-      });
-      
-    document.querySelector('.js-paper-button')
-      .addEventListener('click', () => {
-        playGame('paper');
-      }); 
-      
-    document.querySelector('.js-scissor-button')
-      .addEventListener('click', () => {
-        playGame('scissor');
-      });   
-      
-    document.querySelector('.js-resetScore-button')
-      .addEventListener('click', () => {
-        score.wins = 0;
-        score.losses = 0;
-        score.ties = 0;
+    let isAutoplaying = false;
+    let intervalId;
 
-        localStorage.removeItem('score');
-
-        updateScoreElement();
-      });
-
-      
-    document.body.addEventListener('keydown', (event) => {
-      if (event.key === 'r') {
-        playGame('rock');
+    function autoplay() {
+      if (!isAutoplaying) {
+        intervalId = setInterval( () => {
+        const playerMove = pickcomputerMove();
+        playGame(playerMove);
+      }, 500);
+      isAutoplaying = true;
       }
-      else if (event.key === 'p') {
-        playGame('paper');
+      else {
+        clearInterval(intervalId);
+        isAutoplaying = false;
       }
-      else if (event.key === 's'){
-        playGame('scissor');
-      }
-    });
+    }
 
 
     function playGame(playerMove) {

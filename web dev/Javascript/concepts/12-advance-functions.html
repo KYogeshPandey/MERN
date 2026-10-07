@@ -5,12 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advance Functions</title>
 </head>
-<body>
+<body> 
+
+  <button onclick="" class="js-button">click</button>
   <script>
+
+    const buttonElement = document.querySelector('.js-button');
+
+    const eventListener = () => {
+      console.log('Button clicked');
+    }
+
+    buttonElement.addEventListener('click', eventListener);
+
+    buttonElement.removeEventListener('click', eventListener);
+
+    buttonElement.addEventListener('click', () => {
+      console.log('Button2 clicked');
+    });
+    
+    buttonElement.addEventListener('click', () => {
+      console.log('Button3 clicked');
+    });
+
     const func1 = function greeting() {
       console.log('Hello');
     }
     console.log(func1);
+
+    setTimeout(function() {
+      console.log('hellooo');
+    }, 3000);
 
     //Hoisting
     greeting();
@@ -44,6 +69,11 @@
     run(function() {
       console.log('Hello5')
     });
+
+    // Arrow functions
+
+    const oneline = () => 2+3;
+    console.log(oneline());
 
   </script>
 </body>
